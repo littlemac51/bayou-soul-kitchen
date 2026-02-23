@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bayou Soul Kitchen | Authentic New Orleans Étouffée</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --burgundy: #722F37;
+            --burgundy-dark: #5a252c;
+            --gold: #D4AF37;
+            --gold-light: #e8c966;
+            --cream: #FFF8E7;
+            --cream-dark: #F5EDD6;
+            --iron: #1a1a1a;
+            --iron-light: #2d2d2d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--cream);
+            color: var(--iron);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease, padding 0.3s ease;
+        }
+
+        nav.scrolled {
+            background-color: rgba(26, 26, 26, 0.95);
+            padding: 0.7rem 5%;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 700px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--cream);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.7) 0%, rgba(114, 47, 55, 0.6) 100%),
+                        url('https://images.unsplash.com/photo-1569514207-1b73e3a05160?w=1920&q=80') center/cover no-repeat;
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 2rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero h1 .script {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--gold);
+        }
+
+        .hero-tagline {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background-color: var(--gold);
+            color: var(--iron);
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.7s both;
+        }
+
+        .hero-cta:hover {
+            background-color: var(--cream);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .scroll-indicator span::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: var(--gold);
+            border-radius: 50%;
+            animation: scrollDown 2s infinite;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        @keyframes scrollDown {
+            0% { opacity: 1; top: 8px; }
+            100% { opacity: 0; top: 30px; }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            color: var(--burgundy);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+        }
+
+        /* About Section */
+        .about {
+            background: linear-gradient(to bottom, var(--cream) 0%, var(--cream-dark) 100%);
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            box-shadow: 20px 20px 0 var(--burgundy);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100px;
+            height: 100px;
+            border-top: 3px solid var(--gold);
+            border-left: 3px solid var(--gold);
+        }
+
+        .about-content h3 {
+            font-size: 2.5rem;
+            color: var(--burgundy);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content h3 span {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            color: #444;
+            font-size: 1.05rem;
+        }
+
+        .about-content .highlight {
+            font-size: 1.2rem;
+            color: var(--burgundy);
+            border-left: 4px solid var(--gold);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(114, 47, 55, 0.2);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+        }
+
+        /* Menu Section */
+        .menu {
+            background-color: var(--iron);
+            color: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=80') center/cover no-repeat;
+            opacity: 0.1;
+        }
+
+        .menu .section-header h2 {
+            color: var(--gold);
+        }
+
+        .menu .section-header p {
+            color: rgba(255, 248, 231, 0.8);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-card {
+            background: rgba(45, 45, 45, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .menu-card-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .menu-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .menu-card:hover .menu-card-image img {
+            transform: scale(1.1);
+        }
+
+        .menu-card-content {
+            padding: 1.5rem;
+        }
+
+        .menu-card h3 {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-card .price {
+            font-size: 1.2rem;
+            color: var(--gold-light);
+            margin-bottom: 1rem;
+        }
+
+        .menu-card p {
+            color: rgba(255, 248, 231, 0.7);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .menu-card .tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: var(--burgundy);
+            color: var(--cream);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+        }
+
+        .menu-card .tag.signature {
+            background-color: var(--gold);
+            color: var(--iron);
+        }
+
+        /* Experience Section */
+        .experience {
+            background: var(--cream);
+        }
+
+        .experience-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+
+        .experience-item {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .experience-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .experience-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .experience-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(26, 26, 26, 0.9) 0%, rgba(26, 26, 26, 0.3) 50%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            transition: background 0.3s ease;
+        }
+
+        .experience-item:hover .experience-overlay {
+            background: linear-gradient(to top, rgba(114, 47, 55, 0.95) 0%, rgba(114, 47, 55, 0.5) 50%, transparent 100%);
+        }
+
+        .experience-overlay h3 {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-overlay p {
+            color: var(--cream);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:hover .experience-overlay p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .experience-features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .feature-item {
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item h4 {
+            font-size: 1.2rem;
+            color: var(--burgundy);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Locations Section */
+        .locations {
+            background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-dark) 100%);
+            color: var(--cream);
+            text-align: center;
+        }
+
+        .locations .section-header h2 {
+            color: var(--gold);
+        }
+
+        .locations .section-header p {
+            color: rgba(255, 248, 231, 0.8);
+        }
+
+        .locations-map {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .location-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .location-item {
+            padding: 1.5rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .location-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--gold);
+        }
+
+        .location-item h4 {
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .location-item p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .location-item .status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: var(--gold);
+            color: var(--iron);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            font-weight: 700;
+        }
+
+        .location-item .status.coming {
+            background-color: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+        }
+
+        .locations-cta {
+            margin-top: 2rem;
+        }
+
+        .locations-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--gold);
+            color: var(--iron);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--iron);
+            color: var(--cream);
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand .logo {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 248, 231, 0.7);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--gold);
+            color: var(--iron);
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul a {
+            color: rgba(255, 248, 231, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col ul a:hover {
+            color: var(--gold);
+        }
+
+        .footer-contact p {
+            color: rgba(255, 248, 231, 0.7);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 248, 231, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: rgba(255, 248, 231, 0.5);
+        }
+
+        .footer-bottom a {
+            color: rgba(255, 248, 231, 0.5);
+            text-decoration: none;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--gold);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-item {
+                height: 300px;
+            }
+
+            .experience-features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: rgba(26, 26, 26, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-features {
+                grid-template-columns: 1fr;
+            }
+
+            .location-list {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .footer-contact p {
+                justify-content: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 4rem 5%;
+            }
+
+            .hero-badge {
+                font-size: 0.75rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .hero-cta {
+                padding: 0.8rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">Bayou <span>Soul</span> Kitchen</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">Our Story</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#locations">Locations</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="mobile-menu-btn" id="mobileMenuBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-badge">New Orleans Soul on Wheels</div>
+            <h1>Bayou <span class="script">Soul</span> Kitchen</h1>
+            <p class="hero-tagline">Authentic Cajun & Creole étouffée, crafted with passion and served with love — rolling into your neighborhood.</p>
+            <a href="#menu" class="hero-cta">Explore Our Menu</a>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-image fade-in-left">
+                <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=800&q=80" alt="Cajun seafood dish">
+            </div>
+            <div class="about-content fade-in-right">
+                <h3>A New Chapter in <span>Culinary Adventure</span></h3>
+                <p>When Fran Lessans founded Passport Health in 1994, she revolutionized travel medicine and built a nationwide network serving millions. Now, after three decades of entrepreneurial success, she's following her heart to the bayou.</p>
+                <p class="highlight">"I've always believed that food is the universal language. Étouffée isn't just a dish — it's a story, a tradition, a warm embrace from Louisiana's soul."</p>
+                <p>Bayou Soul Kitchen brings the authentic flavors of New Orleans to communities everywhere. Each cart is a celebration of Cajun heritage, serving dishes made from scratch with recipes perfected over generations.</p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label">Years of Business Excellence</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Fresh Ingredients Daily</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Passion for Flavor</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <div class="section-header fade-in">
+            <h2>Our Menu</h2>
+            <p>From our signature étouffée to classic Creole favorites, every dish tells a story of New Orleans tradition.</p>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-card fade-in">
+                <div class="menu-card-image">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80" alt="Crawfish Étouffée">
+                </div>
+                <div class="menu-card-content">
+                    <h3>Crawfish Étouffée</h3>
+                    <div class="price">$14.95</div>
+                    <p>Louisiana crawfish tails smothered in a rich, buttery roux with the holy trinity of Cajun cooking — onions, celery, and bell peppers. Served over fluffy white rice.</p>
+                    <span class="tag signature">★ Signature</span>
+                </div>
+            </div>
+            <div class="menu-card fade-in">
+                <div class="menu-card-image">
+                    <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=600&q=80" alt="Shrimp Étouffée">
+                </div>
+                <div class="menu-card-content">
+                    <h3>Gulf Shrimp Étouffée</h3>
+                    <div class="price">$15.95</div>
+                    <p>Plump Gulf shrimp in our velvety Creole sauce, kissed with a hint of cayenne and fresh herbs. A taste of the Louisiana coast in every bite.</p>
+                    <span class="tag">Gulf Fresh</span>
+                </div>
+            </div>
+            <div class="menu-card fade-in">
+                <div class="menu-card-image">
+                    <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80" alt="Chicken & Sausage Gumbo">
+                </div>
+                <div class="menu-card-content">
+                    <h3>Chicken & Andouille Gumbo</h3>
+                    <div class="price">$12.95</div>
+                    <p>A dark roux gumbo with tender chicken, smoky andouille sausage, and okra. Topped with filé powder and served with a side of potato salad.</p>
+                    <span class="tag">Classic</span>
+                </div>
+            </div>
+            <div class="menu-card fade-in">
+                <div class="menu-card-image">
+                    <img src="https://images.unsplash.com/photo-1562967914-608f82629710?w=600&q=80" alt="Red Beans and Rice">
+                </div>
+                <div class="menu-card-content">
+                    <h3>Red Beans & Rice</h3>
+                    <div class="price">$10.95</div>
+                    <p>Slow-cooked kidney beans with smoked ham hock, Cajun seasonings, and pickled pork. A New Orleans Monday tradition, available every day.</p>
+                    <span class="tag">Soul Food</span>
+                </div>
+            </div>
+            <div class="menu-card fade-in">
+                <div class="menu-card-image">
+                    <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=600&q=80" alt="Po'Boy Sandwich">
+                </div>
+                <div class="menu-card-content">
+                    <h3>Fried Shrimp Po'Boy</h3>
+                    <div class="price">$13.95</div>
+                    <p>Crispy fried Gulf shrimp dressed with lettuce, tomato, pickles, and our house-made rémoulade on authentic New Orleans French bread.</p>
+                    <span class="tag">Fan Favorite</span>
+                </div>
+            </div>
+            <div class="menu-card fade-in">
+                <div class="menu-card-image">
+                    <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=600&q=80" alt="Beignets">
+                </div>
+                <div class="menu-card-content">
+                    <h3>Beignets</h3>
+                    <div class="price">$6.95</div>
+                    <p>Hot, pillowy squares of fried dough buried under a mountain of powdered sugar. Three per order — enough to share, but you won't want to.</p>
+                    <span class="tag">Sweet Finish</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience" id="experience">
+        <div class="section-header fade-in">
+            <h2>The Cart Experience</h2>
+            <p>More than just food — it's a taste of New Orleans culture, served with southern hospitality.</p>
+        </div>
+        <div class="experience-container">
+            <div class="experience-grid">
+                <div class="experience-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=600&q=80" alt="Food truck experience">
+                    <div class="experience-overlay">
+                        <h3>Fresh & Fast</h3>
+                        <p>Watch your étouffée made to order in our open kitchen carts. Every dish prepared fresh, right before your eyes.</p>
+                    </div>
+                </div>
+                <div class="experience-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1508050919630-b135583b29ab?w=600&q=80" alt="New Orleans French Quarter">
+                    <div class="experience-overlay">
+                        <h3>NOLA Vibes</h3>
+                        <p>Our carts bring the spirit of the French Quarter wherever they go — jazz, beads, and good times included.</p>
+                    </div>
+                </div>
+                <div class="experience-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80" alt="Live music and celebration">
+                    <div class="experience-overlay">
+                        <h3>Community Spirit</h3>
+                        <p>Events, festivals, office parks — we bring people together around great food and good music.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="experience-features">
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">🦐</div>
+                    <h4>Gulf Sourced</h4>
+                    <p>Premium seafood delivered fresh from the Gulf Coast</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">👨‍🍳</div>
+                    <h4>Cajun Trained</h4>
+                    <p>Every chef trained in authentic Louisiana techniques</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">🎷</div>
+                    <h4>NOLA Spirit</h4>
+                    <p>Jazz-inspired atmosphere at every cart</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">💛</div>
+                    <h4>Made with Love</h4>
+                    <p>Family recipes passed down through generations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Locations Section -->
+    <section class="locations" id="locations">
+        <div class="section-header fade-in">
+            <h2>Find Us</h2>
+            <p>Our carts are rolling out across the country. Here's where you can find us — and where we're headed next.</p>
+        </div>
+        <div class="locations-map fade-in">
+            <div class="location-list">
+                <div class="location-item">
+                    <h4>Phoenix, AZ</h4>
+                    <p>Downtown Phoenix, Roosevelt Row District</p>
+                    <span class="status">Now Open</span>
+                </div>
+                <div class="location-item">
+                    <h4>Scottsdale, AZ</h4>
+                    <p>Old Town Scottsdale</p>
+                    <span class="status">Now Open</span>
+                </div>
+                <div class="location-item">
+                    <h4>Tempe, AZ</h4>
+                    <p>Mill Avenue, ASU Area</p>
+                    <span class="status coming">Spring 2026</span>
+                </div>
+                <div class="location-item">
+                    <h4>Austin, TX</h4>
+                    <p>South Congress District</p>
+                    <span class="status coming">Summer 2026</span>
+                </div>
+            </div>
+            <div class="locations-cta">
+                <p>Want Bayou Soul Kitchen at your next event?</p>
+                <a href="#contact" class="btn-outline">Book a Cart</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="#" class="logo">Bayou <span>Soul</span> Kitchen</a>
+                <p>Bringing the authentic flavors of New Orleans to your neighborhood, one cart at a time. Founded by Fran Lessans with a passion for great food and community connection.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="Twitter">𝕏</a>
+                    <a href="#" aria-label="TikTok">♪</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">Our Story</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#locations">Locations</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Catering</a></li>
+                    <li><a href="#">Private Events</a></li>
+                    <li><a href="#">Corporate Lunch</a></li>
+                    <li><a href="#">Franchise Info</a></li>
+                </ul>
+            </div>
+            <div class="footer-col footer-contact">
+                <h4>Contact Us</h4>
+                <p>📧 hello@bayousoulkitchen.com</p>
+                <p>📞 (504) 555-BAYOU</p>
+                <p>📍 Phoenix, AZ</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Bayou Soul Kitchen. All rights reserved.</p>
+            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
